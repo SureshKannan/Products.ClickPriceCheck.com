@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Type</title>
+		<script type="text/javascript">
+			  $(document).ready(function()
+			  {
+			  		$("#btnCancel").click(
+						function() 
+						{
+							window.parent.document.getElementById("btnClose").click();
+				    	}
+				  	);
+			  });
+			 function doSomething()
+			 {
+			 	alert('suri');
+			 }
+		</script>
+	</head>
+	<body style="margin-left:0;margin-top:0px">
+		<!-- <section id="head">
+			<header>
+			<h1>Add New Type:</h1>
+			</header> 
+		</section> -->
+		<section id="content">
+			<%= form_for(@Categorytype, remote: true) do |p| %>
+			<%= p.text_field :name, :placeholder=>'Enter the category type', :size=> 50, :required=> true %>
+			<br>
+			<br>
+			<section id="tbar">
+			<%= p.submit :id=>"btnSave", :value=>"Ok" %>
+			<%= p.submit :id=>"btnCancel",:value=>"Cancel", :type=>"reset" %>
+			 <%= hidden_field_tag "mode", @mode %>
+			
+			</section>
+			<% end %>
+			<br>
+			<br>
+		</section>
+	</body>
+</html>

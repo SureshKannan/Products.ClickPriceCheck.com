@@ -1,0 +1,14 @@
+<% if @mode=="new"%>
+	<% if (@categorytype.new_record? == false) %>
+	window.parent.updateData("new","<tr id='r<%=@categorytype.id%>'><td><input type='checkbox'  name='ps[]' id='row<%=@province.id%>' value='<%=@province.id%>'></td><td><a href='javascript:openProvince(<%=@province.id%>)'><%= @province.name %></a></td><td><%= @province.created_at %></td></tr>","0");
+	alert('<%=@province.name%> sucessfully created!');
+	$("#province_name").val("");
+	$("#province_name").focus();
+	<% else %>
+	alert('Error creating province');
+	<%end%>
+<% else %>
+window.parent.updateData("edit","<tr id='r<%=@province.id%>'><td><input type='checkbox' name='ps[]' id='row<%=@province.id%>' value='<%=@province.id%>'></td><td><a href='javascript:openProvince(<%=@province.id%>)'><%= @province.name %></a></td><td><%= @province.created_at %></td></tr>","r<%=@province.id%>");
+alert('<%=@province.name%> successfully updated!');
+window.parent.document.getElementById("btnClose").click();
+<% end %>
