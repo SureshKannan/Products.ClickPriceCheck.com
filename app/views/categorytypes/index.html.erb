@@ -41,23 +41,27 @@
 		<table class="dataTable">
 			<thead>
 				<tr>
+					<th><input type="checkbox" id="chkAll" /></th>
 					<th>Name</th>
 					<th>Created</th>
 					<th>Status</th>
+					<th></th>
 				</tr>
 			</thead>
 			<thead>
 				<tr>
+					<th style="width:1%"></th>
 					<th><input type="text" id="txtName" style="width:99%"/></th>
 					<th><input type="text" id="txtCreated" style="width:99%"/></th>
 					<th><input type="text" id="txtStatus" style="width:99%"/></th>
+					<th style="width:1%"></th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @Categorytypes.each do |c| %>
 				<tr>
+					<td><input type="checkbox" id="r<%=c.id%>" name="r<%=c.id%>"/></td>
 					<td><%=c.name %></td>
-					
 					<td><% if !c.created_at.nil?  %>
 						<%=c.created_at.strftime('%Y-%m-%d')%>
 						<% end %>
@@ -67,12 +71,13 @@
 					<% else %>
 					<td>Inactive</td>
 					<% end %>
+					<td><img src="assets/delete.png" /></td>
 				</tr>
 				<% end %>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="2">
+					<td colspan="4">
 						<%= will_paginate @Categorytypes %>
 					</td>
 					<td>
