@@ -11,21 +11,23 @@ class CategorytypesController < ApplicationController
   end
   def new
     @Categorytype = Categorytype.new
+    @mode= params[:mode]
   end
   def create
     @Categorytype = Categorytype.new(categorytype_params)
-      @mode= params[:mode]
-      @Categorytype.save
-      respond_to do |f|
-        f.js 
-      end
+    @mode= params[:mode]
+    @Categorytype.save
+    @Categorytypes = Categorytype.all.paginate(:page => params[:page], :per_page => 10)
+    respond_to do |f|
+       f.js 
+    end
   end
   private
   def categorytype_params
     if :categorytype.nil?
-      params.permit(:name,:mode)
+      params.permit(:id,:name,:mode)
     else
-      params.require(:categorytype).permit(:name,:mode)
+      params.require(:categorytype).permit(:id,:name,:mode)
     end
   end
 

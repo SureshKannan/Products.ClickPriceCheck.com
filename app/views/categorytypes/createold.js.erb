@@ -1,0 +1,33 @@
+<% begin %>
+	<% if @mode=="new"%>
+		<% if (@Categorytype.new_record? == false) %>
+			str = "<tr> " + 
+				  "<td><input type='checkbox' id='r<%=@Categorytype.id%>' name='ps[]'/></td> " +
+				  "<td><%=@Categorytype.name %></td>";
+			<% if !@Categorytype.created_at.nil?  %>
+				str = str + " <td><%=@Categorytype.created_at.strftime('%Y-%m-%d')%></td> ";
+			<% else %>
+				str = str + " <td></td>";
+			<% end %>			
+							  
+			<% if @Categorytype.status.nil? %>
+				str = str + " <td>Active</td> ";
+			<% else %>
+				str = str + " <td>Inactive</td>";
+			<% end %>				  
+			str = str + "<td><img src='assets/delete.png' /></td>";
+			str = str + "</tr>";
+			window.parent.updateData("new",str,"0");
+			alert('<%=@Categorytype.name%> sucessfully created!');
+			$("#categorytype_name").val("");
+			$("#categorytype_name").focus();
+		<% else %>
+			alert('Error creating Category type');
+		<%end%>		
+	<% else %>
+		window.parent.document.getElementById("btnClose").click();
+	<% end %>
+<% rescue Exception => e %>
+	<% puts e.message %>
+<% end %>
+

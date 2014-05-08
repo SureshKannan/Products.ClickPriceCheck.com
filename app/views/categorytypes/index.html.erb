@@ -28,6 +28,21 @@
 					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new');
 				    });
 			});
+			
+			//updating the data
+			function updateData(mode,data,rowid)
+			{
+				if (mode=="new")
+				{
+					// $(".dataTable > tbody:last").append(data);
+					$(".dataTable > tbody:last").replaceWith(data);
+				}
+				else
+				{
+				$("#" + rowid).replaceWith(data);
+				}
+
+			}			
 	</script>
 	</head>
 	<body>
@@ -35,32 +50,32 @@
 		<section id="tbar">
 			<input type="button" id="btnNew" value="New">
 			<input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
-			<input type="button" id="btnClose" value="Close">
+			<input type="button" id="btnSearch" value="Search">
 			<input type="button" id="btnClose" value="Close" style='display:none;visibility: hidden'/>
 		</section>
 		<table class="dataTable">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="chkAll" /></th>
-					<th>Name</th>
-					<th>Created</th>
-					<th>Status</th>
-					<th></th>
+					<th style="width:1%"><input type="checkbox" id="chkAll"/></th>
+					<th style="width:55%">Name</th>
+					<th style="width:30%">Created</th>
+					<th style="width:10%">Status</th>
+					<th style="width:2%"></th>
 				</tr>
 			</thead>
 			<thead>
 				<tr>
-					<th style="width:1%"></th>
+					<th></th>
 					<th><input type="text" id="txtName" style="width:99%"/></th>
 					<th><input type="text" id="txtCreated" style="width:99%"/></th>
 					<th><input type="text" id="txtStatus" style="width:99%"/></th>
-					<th style="width:1%"></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @Categorytypes.each do |c| %>
 				<tr>
-					<td><input type="checkbox" id="r<%=c.id%>" name="r<%=c.id%>"/></td>
+					<td><input type="checkbox" id="r<%=c.id%>" name="ps[]"/></td>
 					<td><%=c.name %></td>
 					<td><% if !c.created_at.nil?  %>
 						<%=c.created_at.strftime('%Y-%m-%d')%>
@@ -77,10 +92,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="3">
 						<%= will_paginate @Categorytypes %>
 					</td>
-					<td>
+					<td colspan="2">
 						<%=Categorytype.count%> Records
 					</td>
 				</tr>
