@@ -12,10 +12,12 @@ class CategorytypesController < ApplicationController
   def new
     @Categorytype = Categorytype.new
     @mode= params[:mode]
+    @page = params[:page]
   end
   def create
     @Categorytype = Categorytype.new(categorytype_params)
     @mode= params[:mode]
+    @page = params[:page]
     @Categorytype.save
     @Categorytypes = Categorytype.all.paginate(:page => params[:page], :per_page => 10)
     respond_to do |f|

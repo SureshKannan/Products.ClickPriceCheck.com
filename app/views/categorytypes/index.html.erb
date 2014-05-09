@@ -25,8 +25,12 @@
 				    {
 					        $( "#dialog-form" ).dialog( "open" );
 					        //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
+					        <% if params[:page].nil? %> 
 					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new');
-				    });
+					        <% else %>
+					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page=<%=params[:page]%>');
+					        <% end %>
+					});
 			});
 			
 			//updating the data
