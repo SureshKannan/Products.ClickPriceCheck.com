@@ -16,6 +16,21 @@ class CategorytypesController < ApplicationController
       format.js
     end
   end
+ def edit
+    @Categorytype = Categorytype.find(params[:id])
+    @mode = params[:mode]
+    render "new"
+  end
+  def update
+    @Categorytype = Categorytype.find(params[:id])
+    @mode= params[:mode]
+    @Categorytype.update(categorytype_params)
+    respond_to do |f|
+      f.js {render "create"}
+    end
+  end
+  
+    
   def listtypes
     @Categorytypes = Categorytype.all
     render json: {:Result=>"OK",:Records=>@Categorytypes}

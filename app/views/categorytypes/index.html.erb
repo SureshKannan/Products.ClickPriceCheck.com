@@ -6,24 +6,13 @@
 			$(document).ready(function() 
 			{			
 					/* selecting the row */
-					// $('.dataTable input[type=checkbox]').click(function(event)
-					// {
-						// alert('checkbox click');
-						// event.stopPropagation()
-					// });
-					alert('ready');
-					$('.dataTable tbody tr:not(.filterOut)').click(function(){
-						var col = $(this).parent().children().index($(this));
-						if(col!=1) 
-						{
-							alert('tr click');
-            			alert(this.id);
-              			alert($(this).attr('id'));
-						}
-						
-            		});
-				
-					$('.pagination a').attr('data-remote', 'true')
+					$('.dataTable input[type=checkbox]').click(function(event)
+					{
+						event.stopPropagation()
+					});
+					
+					$(document).on('dblclick','.dataTable tbody tr',openEditWindow);
+					$('.pagination a').attr('data-remote', 'true');
 					$( "#dialog-form" ).dialog({
 						dialogClass: "no-close",
 				      autoOpen: false,
@@ -37,17 +26,22 @@
 				    	$("#dialog-form").dialog("close");
 				
 				    });
-				    
-			 		$('.ui-dialog-buttonpane').find('button').css('visibility','hidden');
-					
-					$("#btnNew").click(function() 
-				    {
-					        $( "#dialog-form" ).dialog( "open" );
-					        page = $("#page").val();
-					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page='+page);
-					});
+				   
+			 		$('.ui-dialog-buttonpane').find('button').css('visibility','hidden');					
+					$("#btnNew").click(openNewWindow);
 			});
-			
+			function openEditWindow()
+	  		{
+	  			id = this.id.replace('r','');
+	  			$( "#dialog-form" ).dialog( "open" );
+			    $("#newdialog").attr('src','<%=categorytypes_path%>/'+id+'/edit?mode=edit');
+	  		}
+	  		function openNewWindow()
+	  		{
+	  			  $( "#dialog-form" ).dialog( "open" );
+		          page = $("#page").val();
+				  $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page='+page);
+	  		}			
 			//updating the data
 			function updateData(mode,data,rowid)
 			{

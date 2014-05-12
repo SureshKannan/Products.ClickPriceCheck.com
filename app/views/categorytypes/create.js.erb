@@ -9,6 +9,22 @@
 			alert('Error creating Category type');
 		<%end%>		
 	<% else %>
+		str = " <tr id='r<%=@Categorytype.id%>'> " +
+			  " <td><input type='checkbox' id='r<%=@Categorytype.id%>' name='ps[]'/></td> " +
+			  " <td><%=@Categorytype.name %></td>  ";
+			  <% if !@Categorytype.created_at.nil?  %>
+				str += " <td><%=@Categorytype.created_at.strftime('%Y-%m-%d')%> </td>";
+			  <% end %>
+			  str += " 	</td> ";
+			  <% if @Categorytype.status.nil? %>
+				str += "<td>Active</td>";
+			  <% else %>
+				str += "<td>Inactive</td>";
+			  <% end %>
+			  str += "<td><img src='assets/delete.png' /></td>";
+			  str += "</tr>";
+		window.parent.updateData("edit",str,"r<%=@Categorytype.id%>");
+		alert('<%=@Categorytype.name%> successfully updated!');
 		window.parent.document.getElementById("btnClose").click();
 	<% end %>
 <% rescue Exception => e %>
