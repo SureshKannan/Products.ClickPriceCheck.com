@@ -1,0 +1,48 @@
+<table class="dataTable">
+			<thead>
+				<tr>
+					<th style="width:1%"><input type="checkbox" id="chkAll"/></th>
+					<th style="width:55%">Name</th>
+					<th style="width:30%">Created</th>
+					<th style="width:10%">Status</th>
+					<th style="width:2%"></th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<th></th>
+					<th><input type="text" id="txtName" style="width:99%"/></th>
+					<th><input type="text" id="txtCreated" style="width:99%"/></th>
+					<th><input type="text" id="txtStatus" style="width:99%"/></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @Categorytypes.each do |c| %>
+				<tr id="r<%=c.id%>">
+					<td><input type="checkbox" class="filterOut" id="r<%=c.id%>" name="ps[]"/></td>
+					<td><%=c.name %></td>
+					<td><% if !c.created_at.nil?  %>
+						<%=c.created_at.strftime('%Y-%m-%d')%>
+						<% end %>
+					</td>
+					<% if c.status.nil? %>
+					<td>Active</td>
+					<% else %>
+					<td>Inactive</td>
+					<% end %>
+					<td><img src="assets/delete.png" /></td>
+				</tr>
+				<% end %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<%= will_paginate @Categorytypes, remote: true %>
+					</td>
+					<td colspan="2">
+						<%=Categorytype.count%> Records
+					</td>
+				</tr>
+			</tfoot>
+		</table>

@@ -25,6 +25,11 @@
 	border: 1px solid lightgrey;
 }
 
+.dataTable tbody tr:hover {
+	background-color: yellow;
+	cursor: pointer;
+}
+
 button {
 	height: 5%;
 }

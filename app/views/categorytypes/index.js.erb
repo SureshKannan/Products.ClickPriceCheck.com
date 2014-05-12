@@ -1,0 +1,7 @@
+$('#categorytypes').html('<%=escape_javascript(render :partial => 'shared/categorytype')%>');
+$('#page').val(<%=params[:page]%>);
+$('.pagination a').attr('data-remote', 'true');
+$('.dataTable tbody tr + input:not(:checked)').click(function(){
+            alert(this.id);
+              alert($(this).attr('id'));
+            });

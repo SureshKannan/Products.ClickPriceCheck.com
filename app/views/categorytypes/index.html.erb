@@ -5,6 +5,25 @@
 	<script>
 			$(document).ready(function() 
 			{			
+					/* selecting the row */
+					// $('.dataTable input[type=checkbox]').click(function(event)
+					// {
+						// alert('checkbox click');
+						// event.stopPropagation()
+					// });
+					alert('ready');
+					$('.dataTable tbody tr:not(.filterOut)').click(function(){
+						var col = $(this).parent().children().index($(this));
+						if(col!=1) 
+						{
+							alert('tr click');
+            			alert(this.id);
+              			alert($(this).attr('id'));
+						}
+						
+            		});
+				
+					$('.pagination a').attr('data-remote', 'true')
 					$( "#dialog-form" ).dialog({
 						dialogClass: "no-close",
 				      autoOpen: false,
@@ -24,12 +43,8 @@
 					$("#btnNew").click(function() 
 				    {
 					        $( "#dialog-form" ).dialog( "open" );
-					        //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
-					        <% if params[:page].nil? %> 
-					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new');
-					        <% else %>
-					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page=<%=params[:page]%>');
-					        <% end %>
+					        page = $("#page").val();
+					        $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page='+page);
 					});
 			});
 			
@@ -39,10 +54,12 @@
 				if (mode=="new")
 				{
 					// $(".dataTable > tbody:last").append(data);
-					$(".dataTable > tbody:last").replaceWith(data);
+					$("#categorytypes").html(data);
+					$('.pagination a').attr('data-remote', 'true');
 				}
 				else
 				{
+					alert('mode edit');
 				$("#" + rowid).replaceWith(data);
 				}
 
@@ -56,55 +73,12 @@
 			<input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
 			<input type="button" id="btnSearch" value="Search">
 			<input type="button" id="btnClose" value="Close" style='display:none;visibility: hidden'/>
+			<input type="text" id="page" name="page" value="<%=@page%>" style='display: none;visibility: hidden;'/>
+			<input type="text" id="mode" name="mode" value="<%=@mode%>" style='display: none;visibility: hidden'/>
 		</section>
-		<table class="dataTable">
-			<thead>
-				<tr>
-					<th style="width:1%"><input type="checkbox" id="chkAll"/></th>
-					<th style="width:55%">Name</th>
-					<th style="width:30%">Created</th>
-					<th style="width:10%">Status</th>
-					<th style="width:2%"></th>
-				</tr>
-			</thead>
-			<thead>
-				<tr>
-					<th></th>
-					<th><input type="text" id="txtName" style="width:99%"/></th>
-					<th><input type="text" id="txtCreated" style="width:99%"/></th>
-					<th><input type="text" id="txtStatus" style="width:99%"/></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @Categorytypes.each do |c| %>
-				<tr>
-					<td><input type="checkbox" id="r<%=c.id%>" name="ps[]"/></td>
-					<td><%=c.name %></td>
-					<td><% if !c.created_at.nil?  %>
-						<%=c.created_at.strftime('%Y-%m-%d')%>
-						<% end %>
-					</td>
-					<% if c.status.nil? %>
-					<td>Active</td>
-					<% else %>
-					<td>Inactive</td>
-					<% end %>
-					<td><img src="assets/delete.png" /></td>
-				</tr>
-				<% end %>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<%= will_paginate @Categorytypes %>
-					</td>
-					<td colspan="2">
-						<%=Categorytype.count%> Records
-					</td>
-				</tr>
-			</tfoot>
-		</table>
+		<div id="categorytypes">
+			<%= render :partial => 'shared/categorytype' %>
+		</div>
 		<!-- dialog start -->
 		<div id="dialog-form" title="New category type">
 			<iframe id="newdialog" name="newdialog" seamless="seamless" frameborder="0" height="100%" width="100%" scrolling="no"> 

@@ -1,6 +1,20 @@
 class CategorytypesController < ApplicationController
   def index
-    @Categorytypes = Categorytype.all.paginate(:page => params[:page], :per_page => 10)
+    @page = params[:page]
+    if params[:page].nil? 
+      @page = 1
+    else 
+      if params[:page]==""
+        @page = 1
+      else
+        @page = params[:page]
+      end
+    end
+    @Categorytypes = Categorytype.all.paginate(:page => @page, :per_page => 10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   def listtypes
     @Categorytypes = Categorytype.all
@@ -17,9 +31,9 @@ class CategorytypesController < ApplicationController
   def create
     @Categorytype = Categorytype.new(categorytype_params)
     @mode= params[:mode]
-    @page = params[:page]
     @Categorytype.save
-    @Categorytypes = Categorytype.all.paginate(:page => params[:page], :per_page => 10)
+    @page = params[:page]
+    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)
     respond_to do |f|
        f.js 
     end

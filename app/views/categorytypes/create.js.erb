@@ -1,27 +1,7 @@
 <% begin %>
 	<% if @mode=="new"%>
 		<% if (@Categorytype.new_record? == false) %>
-			str = "";
-			<% @Categorytypes.each do |c| %>
-				str += "<tr> " + 
-					   "<td><input type='checkbox' id='r<%=c.id%>' name='ps[]'/></td> " +
-					   "<td><%=c.name %></td>";
-				<% if !c.created_at.nil?  %>
-					str = str + " <td><%=c.created_at.strftime('%Y-%m-%d')%></td> ";
-				<% else %>
-					str = str + " <td></td>";
-				<% end %>			
-								  
-				<% if c.status.nil? %>
-					str = str + " <td>Active</td> ";
-				<% else %>
-					str = str + " <td>Inactive</td>";
-				<% end %>				  
-				str = str + "<td><img src='assets/delete.png' /></td>";
-				str = str + "</tr>";
-			<% end %>
-			alert(str);
-			window.parent.updateData("new",str,"0");
+			window.parent.updateData("new","<%=escape_javascript(render(:partial => "shared/categorytype"))%>","0");
 			alert('<%=@Categorytype.name%> sucessfully created!');
 			$("#categorytype_name").val("");
 			$("#categorytype_name").focus();
