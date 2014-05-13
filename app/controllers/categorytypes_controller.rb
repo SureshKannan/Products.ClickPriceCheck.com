@@ -29,6 +29,7 @@ class CategorytypesController < ApplicationController
       f.js {render "create"}
     end
   end
+
   
     
   def listtypes
@@ -36,7 +37,16 @@ class CategorytypesController < ApplicationController
     render json: {:Result=>"OK",:Records=>@Categorytypes}
   end
   def searchOrdelete
-    
+    if params[:btnDelete]
+        delete
+        render "delete"
+    elsif params[:btnSearch]
+        search
+        render "search"
+    else
+        delete
+        render "delete"
+    end    
   end
   def new
     @Categorytype = Categorytype.new
@@ -53,6 +63,19 @@ class CategorytypesController < ApplicationController
        f.js 
     end
   end
+  def delete
+    @Cattypes= params[:ps] 
+    @Cattypes.each { |f| 
+      @Cattype = Categorytype.find(f)
+      if (@Cattype)
+      @Cattype.destroy
+      end
+     }
+    @page = params[:page]
+    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)
+     
+  end
+    
   private
   def categorytype_params
     if :categorytype.nil?

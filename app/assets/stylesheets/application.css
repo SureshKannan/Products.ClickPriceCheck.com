@@ -30,6 +30,16 @@
 	cursor: pointer;
 }
 
+.highlightRow {
+	background-color: yellow;
+	border:dotted 1px grey;
+}
+
+.normalRow {
+	background-color: white;
+	border-style: none;
+}
+
 button {
 	height: 5%;
 }

@@ -19,19 +19,22 @@
 				      height: 300,
 				      width: 500,
 				      modal: true,
-			    	});
-			 
-				    $("#btnClose").click(function()
-				    {
-				    	$("#dialog-form").dialog("close");
-				
-				    });
-				   
+			    	});			 
+				    $("#btnClose").click(closeWindow);
 			 		$('.ui-dialog-buttonpane').find('button').css('visibility','hidden');					
 					$("#btnNew").click(openNewWindow);
 			});
+			
+			function closeWindow(id)
+			{
+				$('#'+id).addClass('normalRow');		  			
+				$("#dialog-form").dialog("close");
+			}
 			function openEditWindow()
 	  		{
+	  			if ($('#'+this.id).hasClass('highlightRow')==false)
+	  			$('#'+this.id).addClass('highlightRow');
+	  			
 	  			id = this.id.replace('r','');
 	  			$( "#dialog-form" ).dialog( "open" );
 			    $("#newdialog").attr('src','<%=categorytypes_path%>/'+id+'/edit?mode=edit');
@@ -53,18 +56,60 @@
 				}
 				else
 				{
-					alert('mode edit');
 				$("#" + rowid).replaceWith(data);
 				}
 
-			}			
+			}
+			function selectRows()
+			{
+				var selected = $("#selectAll").prop("checked");
+				if (selected)
+					$("input:checkbox").prop("checked",true);
+				else
+					$("input:checkbox").prop("checked",false);
+		
+				
+			}
+			function deleteRow(id)
+			{
+				$('#'+'c' + id).prop("checked",true);
+				bln = deleteRows();
+				if (bln)
+					$('#btnDelete').submit();
+				else
+					$('#'+'c' + id).prop("checked",false);
+				
+				
+			}
+	function deleteRows()
+	{
+		var n = $("input:checkbox:checked" ).not("#selectAll").length;
+		if (n<=0)
+		{
+			alert('Please select the category type[s] to delete!');
+			return false;
+		}
+		else
+		{
+			//alert(ids);
+			if (confirm('Are you sure?')==true)
+			{
+				//$('#btnDelete').submit();
+				return true;
+			}		
+			else
+			{
+				return false;
+			}
+		}
+	}
 	</script>
 	</head>
 	<body>
 		<%= form_tag({:action => "searchOrdelete"}, remote: true) do %>
 		<section id="tbar">
 			<input type="button" id="btnNew" value="New">
-			<input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
+			<input type="submit" id="btnDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
 			<input type="button" id="btnSearch" value="Search">
 			<input type="button" id="btnClose" value="Close" style='display:none;visibility: hidden'/>
 			<input type="text" id="page" name="page" value="<%=@page%>" style='display: none;visibility: hidden;'/>

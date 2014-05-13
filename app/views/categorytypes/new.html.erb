@@ -5,17 +5,12 @@
 		<script type="text/javascript">
 			  $(document).ready(function()
 			  {
-			  		$("#btnCancel").click(
-						function() 
-						{
-							window.parent.document.getElementById("btnClose").click();
-				    	}
-				  	);
+			  		$("#btnCancel").click(closeWindow);
 			  });
-			 function doSomething()
-			 {
-			 	alert('suri');
-			 }
+			  function closeWindow()
+			  {
+			  		window.parent.closeWindow('r<%=@Categorytype.id%>');
+			  }
 		</script>
 	</head>
 	<body style="margin-left:0;margin-top:0px">

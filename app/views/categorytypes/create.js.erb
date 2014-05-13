@@ -23,9 +23,10 @@
 			  <% end %>
 			  str += "<td><img src='assets/delete.png' /></td>";
 			  str += "</tr>";
-		window.parent.updateData("edit",str,"r<%=@Categorytype.id%>");
-		alert('<%=@Categorytype.name%> successfully updated!');
-		window.parent.document.getElementById("btnClose").click();
+			window.parent.updateData("edit",str,"r<%=@Categorytype.id%>");
+			<!-- alert('<%=@Categorytype.name%> successfully updated!'); -->
+			window.parent.closeWindow("r<%=@Categorytype.id%>");
+			<!-- window.parent.document.getElementById("btnClose").click(); -->
 	<% end %>
 <% rescue Exception => e %>
 	<% puts e.message %>
