@@ -1,4 +1,5 @@
 ProductsClickpricecheckCom::Application.routes.draw do
+  post 'categorytypes/delete'
   post 'categorytypes/searchOrdelete'
   get 'categorytypes/listtypes' => 'categorytypes#listtypes'
   resources :categories

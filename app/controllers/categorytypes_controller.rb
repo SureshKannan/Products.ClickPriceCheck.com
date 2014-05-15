@@ -11,16 +11,26 @@ class CategorytypesController < ApplicationController
       end
     end
     @Categorytypes = Categorytype.all.paginate(:page => @page, :per_page => 10)
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    if params[:btnDelete]
+        delete
+        render "delete"
+    elsif params[:btnSearch]
+        search
+        render "search"
+    else
+        respond_to do |format|
+          format.html
+          format.js
+        end
+    end        
   end
- def edit
+  
+  def edit
     @Categorytype = Categorytype.find(params[:id])
     @mode = params[:mode]
     render "new"
   end
+  
   def update
     @Categorytype = Categorytype.find(params[:id])
     @mode= params[:mode]
@@ -29,30 +39,18 @@ class CategorytypesController < ApplicationController
       f.js {render "create"}
     end
   end
-
-  
     
   def listtypes
     @Categorytypes = Categorytype.all
     render json: {:Result=>"OK",:Records=>@Categorytypes}
   end
-  def searchOrdelete
-    if params[:btnDelete]
-        delete
-        render "delete"
-    elsif params[:btnSearch]
-        search
-        render "search"
-    else
-        delete
-        render "delete"
-    end    
-  end
+  
   def new
     @Categorytype = Categorytype.new
     @mode= params[:mode]
     @page = params[:page]
   end
+  
   def create
     @Categorytype = Categorytype.new(categorytype_params)
     @mode= params[:mode]
@@ -63,6 +61,7 @@ class CategorytypesController < ApplicationController
        f.js 
     end
   end
+  
   def delete
     @Cattypes= params[:ps] 
     @Cattypes.each { |f| 
@@ -72,8 +71,7 @@ class CategorytypesController < ApplicationController
       end
      }
     @page = params[:page]
-    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)
-     
+    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)   
   end
     
   private
@@ -84,5 +82,4 @@ class CategorytypesController < ApplicationController
       params.require(:categorytype).permit(:id,:name,:mode)
     end
   end
-
 end
