@@ -63,13 +63,18 @@ class CategorytypesController < ApplicationController
   end
   
   def delete
-    @Cattypes= params[:ps] 
-    @Cattypes.each { |f| 
-      @Cattype = Categorytype.find(f)
-      if (@Cattype)
+    @Cattype = Categorytype.find(params[:id])
+    if (@Cattype)
       @Cattype.destroy
-      end
-     }
+    end
+    
+    # @Cattypes= params[:ps] 
+    # @Cattypes.each { |f| 
+      # @Cattype = Categorytype.find(f)
+      # if (@Cattype)
+      # @Cattype.destroy
+      # end
+     # }
     @page = params[:page]
     @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)   
   end

@@ -31,14 +31,15 @@
 					<% else %>
 					<td>Inactive</td>
 					<% end %>
-					<td><%=link_to  image_tag('delete.png',:border=>0), :controller=>'categorytypes',:action=>'delete',:id=>c.id,:remote=>true %></td>
+					<td><%=link_to(image_tag('delete.png',:border=>0), {:action=>'delete',:id=> c.id,:page=>@page},:method=>:post, :remote=>true)%></td>
 				</tr>
 				<% end %>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<%= will_paginate @Categorytypes, remote: true %>
+						<%= will_paginate(@Categorytypes, :params => { :controller => "categorytypes", :action => "index" },remote: true, :onclick=>'return Confirmation();') %>
+						<!-- <%= will_paginate @Categorytypes, remote: true %> -->
 					</td>
 					<td colspan="2">
 						<%=Categorytype.count%> Records
