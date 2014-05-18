@@ -1,7 +1,11 @@
 ProductsClickpricecheckCom::Application.routes.draw do
+  #post 'categorytypes/navigate'
+  #get 'categorytypes' => 'categorytypes#index'
+  #post 'categorytypes/index' => 'categorytypes#index'
+  post 'categorytypes/deleteall'=>'categorytypes#deleteall'
   post 'categorytypes/delete' => 'categorytypes#delete'
-  post 'categorytypes/searchOrdelete'
-  get 'categorytypes/listtypes' => 'categorytypes#listtypes'
+  #post 'categorytypes/searchOrdelete'
+  #get 'categorytypes/listtypes' => 'categorytypes#listtypes'
   resources :categories
   resources :categorytypes
    # The priority is based upon order of creation: first created -> highest priority.

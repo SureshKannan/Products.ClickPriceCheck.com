@@ -81,7 +81,29 @@
 				
 				
 			}
-	
+	function deleteConfirm(event)
+	{
+		if (confirm('Are you sure?')==true)
+		{
+			return true;
+		}		
+		else
+		{
+			event.preventDefault();
+			return false;
+			
+		}
+	}
+	function setMode(mode)
+	{
+		$('#mode').val(mode);
+	}
+	function clearAll()
+	{
+		$('#txtName').val('');
+		$('#txtCreated').val('');
+		$('#txtStatus').val('');
+	}
 	function deleteRows()
 	{
 		var n = $("input:checkbox:checked" ).not("#selectAll").length;
@@ -107,11 +129,13 @@
 	</script>
 	</head>
 	<body>
-		<%= form_tag({:action => "index"}, remote: true) do %>
+		<%= form_tag({:controller => 'categorytypes',:action => "index"},:method=>:post, remote: true) do %>
 		<section id="tbar">
-			<input type="button" id="btnNew" value="New">
+			<input type="button" id="btnNew" value="New" onclick="setMode('new')">
+			<!-- <%= button_to "Delete",{:controller=>'categorytypes',:action=>'deleteall'},:remote=>true,:data => { confirm: 'Reallly?'}%> -->
 			<input type="submit" id="btnDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
-			<input type="button" id="btnSearch" value="Search">
+			<input type="submit" id="btnSearch" name="btnSearch" value="Search" onclick="setMode('search');">
+			<input type="submit" id="btnClear" name="btnClear" value="Clear" onclick="clearAll();">
 			<input type="button" id="btnClose" value="Close" style='display:none;visibility: hidden'/>
 			<input type="text" id="page" name="page" value="<%=@page%>" style='display: none;visibility: hidden;'/>
 			<input type="text" id="mode" name="mode" value="<%=@mode%>" style='display: none;visibility: hidden'/>

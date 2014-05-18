@@ -21,7 +21,7 @@
 		</section> -->
 		<section id="content">
 			<%= form_for(@Categorytype, remote: true) do |p| %>
-			<%= p.text_field :name, :placeholder=>'Enter the category type', :size=> 50, :required=> true %>
+			<%= p.text_field :name, :placeholder=>'Enter the category type', :size=> 50, :required=> true, :autofocus=>true %>
 			<br>
 			<br>
 			<section id="tbar">

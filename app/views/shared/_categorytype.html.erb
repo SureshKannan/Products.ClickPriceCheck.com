@@ -11,9 +11,9 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th><input type="text" id="txtName" style="width:99%"/></th>
-					<th><input type="text" id="txtCreated" style="width:99%"/></th>
-					<th><input type="text" id="txtStatus" style="width:99%"/></th>
+					<th><input type="text" id="txtName" name="txtName" value="<%=params[:txtName]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtCreated" name="txtCreated" value="<%=params[:txtCreated]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtStatus" name="txtStatus" value='<%=params[:txtStatus]%>' style="width:99%"/></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -31,18 +31,18 @@
 					<% else %>
 					<td>Inactive</td>
 					<% end %>
-					<td><%=link_to(image_tag('delete.png',:border=>0), {:action=>'delete',:id=> c.id,:page=>@page},:method=>:post, :remote=>true)%></td>
+					<td><%=link_to(image_tag('delete.png',:border=>0), {:action=>'delete',:id=> c.id,:page=>@page},:method=>:post, :remote=>true, :data=> { :confirm=>'Are you sure?' })%></td>
 				</tr>
 				<% end %>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<%= will_paginate(@Categorytypes, :params => { :controller => "categorytypes", :action => "index" },remote: true, :onclick=>'return Confirmation();') %>
+							<%= will_paginate(@Categorytypes, :params => { :controller => "categorytypes", :action => "index",:mode=>@mode}, remote: true) %>
 						<!-- <%= will_paginate @Categorytypes, remote: true %> -->
 					</td>
 					<td colspan="2">
-						<%=Categorytype.count%> Records
+						<%=@Categorytypes.total_entries%> Records 
 					</td>
 				</tr>
 			</tfoot>

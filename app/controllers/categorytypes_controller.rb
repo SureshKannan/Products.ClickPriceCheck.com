@@ -10,27 +10,21 @@ class CategorytypesController < ApplicationController
         @page = params[:page]
       end
     end
-    @Categorytypes = Categorytype.all.paginate(:page => @page, :per_page => 10)
-    if params[:btnDelete]
-        delete
-        render "delete"
-    elsif params[:btnSearch]
-        search
-        render "search"
+    if @mode!='search'
+      @Categorytypes = Categorytype.all.paginate(:page => @page, :per_page => 10)
     else
-        respond_to do |format|
-          format.html
-          format.js
-        end
-    end        
+      @Categorytypes=@Categorytypes.paginate(:page=>@page,:per_page=>10)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end    
   end
-  
   def edit
     @Categorytype = Categorytype.find(params[:id])
     @mode = params[:mode]
     render "new"
   end
-  
   def update
     @Categorytype = Categorytype.find(params[:id])
     @mode= params[:mode]
@@ -44,24 +38,44 @@ class CategorytypesController < ApplicationController
     @Categorytypes = Categorytype.all
     render json: {:Result=>"OK",:Records=>@Categorytypes}
   end
-  
   def new
     @Categorytype = Categorytype.new
     @mode= params[:mode]
     @page = params[:page]
   end
-  
   def create
-    @Categorytype = Categorytype.new(categorytype_params)
     @mode= params[:mode]
-    @Categorytype.save
-    @page = params[:page]
-    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)
-    respond_to do |f|
-       f.js 
-    end
+    if params[:btnDelete]
+        deleteall
+        render "delete"
+    elsif params[:btnSearch]
+        @mode="search"
+        search
+        render "search"
+    elsif params[:btnClear]
+        @mode=""
+        redirect_to action: 'index'
+    else
+      @Categorytype = Categorytype.new(categorytype_params)
+      @Categorytype.save
+      @page = params[:page]
+      @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)
+      respond_to do |f|
+         f.js 
+      end
+    end        
   end
-  
+  def deleteall
+    @Cattypes= params[:ps] 
+    @Cattypes.each { |f| 
+      @Cattype = Categorytype.find(f)
+      if (@Cattype)
+      @Cattype.destroy
+      end
+     }
+    @page = params[:page]
+    @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)   
+  end
   def delete
     @Cattype = Categorytype.find(params[:id])
     if (@Cattype)
@@ -77,6 +91,16 @@ class CategorytypesController < ApplicationController
      # }
     @page = params[:page]
     @Categorytypes = Categorytype.all.paginate(:page =>@page, :per_page => 10)   
+  end
+  def search    
+    if (!params[:txtName].nil? and params[:txtName]!='')
+     
+      @Categorytypes = Categorytype.where("name like ?",'%' + params[:txtName] + '%')
+      @page = params[:page]
+      @Categorytypes = @Categorytypes.paginate(:page=>1,:per_page=>@Categorytypes.count)
+    else
+      @Categorytypes = Categorytype.all.paginate(:page=>@page,:per_page=>@Categorytypes.count)
+    end
   end
     
   private
