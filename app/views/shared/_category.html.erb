@@ -1,0 +1,54 @@
+<table class="dataTable">
+			<thead>
+				<tr>
+					<th style="width:1%"><input type="checkbox" id="selectAll" value='-1' onclick="selectRows();"/></th>
+					<th style="width:35%">Name</th>
+					<th style="width:25%">Type</th>
+					<th style="width:15%">Parent</th>
+					<th style="width:11%">Created</th>
+					<th style="width:10%">Status</th>
+					<th style="width:2%"></th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<th></th>
+					<th><input type="text" id="txtName" name="txtName" value="<%=params[:txtName]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtType" name="txtType" value="<%=params[:txtType]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtParent" name="txtParent" value="<%=params[:txtParent]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtCreated" name="txtCreated" value="<%=params[:txtCreated]%>" style="width:99%"/></th>
+					<th><input type="text" id="txtStatus" name="txtStatus" value='<%=params[:txtStatus]%>' style="width:99%"/></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @Categories.each do |c| %>
+				<tr id="r<%=c.id%>">
+					<td><input type="checkbox" id="c<%=c.id%>" value='<%=c.id%>' name="ps[]"/></td>
+					<td><%=c.name %></td>
+					<td><%=c.categorytype.name %></td>
+					<td><%=c.category_id.name %></td>
+					<td><% if !c.created_at.nil?  %>
+						<%=c.created_at.strftime('%Y-%m-%d')%>
+						<% end %>
+					</td>
+					<% if c.status.nil? %>
+					<td>Active</td>
+					<% else %>
+					<td>Inactive</td>
+					<% end %>
+					<td><%=link_to(image_tag('delete.png',:border=>0), {:action=>'delete',:id=> c.id,:page=>@page},:method=>:post, :remote=>true, :data=> { :confirm=>'Are you sure?' })%></td>
+				</tr>
+				<% end %>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5">
+							<%= will_paginate(@Categories, :params => { :controller => "categories", :action => "index",:mode=>@mode}, remote: true) %>
+					</td>
+					<td colspan="2">
+						<%=@Categories.total_entries%> Records 
+					</td>
+				</tr>
+			</tfoot>
+		</table>

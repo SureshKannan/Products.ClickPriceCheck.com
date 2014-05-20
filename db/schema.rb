@@ -14,8 +14,9 @@
 ActiveRecord::Schema.define(version: 20140423105555) do
 
   create_table "Categories", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "parentid"
+    t.string   "name",            null: false
+    t.integer  "Category_id"
+    t.integer  "Categorytype_id"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
