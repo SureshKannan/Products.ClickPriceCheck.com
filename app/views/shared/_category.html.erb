@@ -27,7 +27,11 @@
 					<td><input type="checkbox" id="c<%=c.id%>" value='<%=c.id%>' name="ps[]"/></td>
 					<td><%=c.name %></td>
 					<td><%=c.categorytype.name %></td>
-					<td><%=c.category_id.name %></td>
+					<% if c.parent.nil? %>
+						<td>&nbsp;</td>
+					<% else %>
+					<td><%=c.parent.name %></td>
+					<% end %>
 					<td><% if !c.created_at.nil?  %>
 						<%=c.created_at.strftime('%Y-%m-%d')%>
 						<% end %>

@@ -1,7 +1,7 @@
 ProductsClickpricecheckCom::Application.routes.draw do
-  #post 'categorytypes/navigate'
-  #get 'categorytypes' => 'categorytypes#index'
-  #post 'categorytypes/index' => 'categorytypes#index'
+  post 'categories/deleteall'=>'categories#deleteall'
+  post 'categories/delete' => 'categories#delete'
+  
   post 'categorytypes/deleteall'=>'categorytypes#deleteall'
   post 'categorytypes/delete' => 'categorytypes#delete'
   #post 'categorytypes/searchOrdelete'

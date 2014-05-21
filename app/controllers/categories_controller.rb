@@ -20,12 +20,4 @@ class CategoriesController < ApplicationController
       format.js
     end
   end
-
-  def new
-
-  end
-
-  def create
-
-  end
 end
