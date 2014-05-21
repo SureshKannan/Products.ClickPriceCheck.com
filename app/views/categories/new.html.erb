@@ -9,7 +9,7 @@
 			  });
 			  function closeWindow()
 			  {
-			  		window.parent.closeWindow('r<%=Category.id%>');
+			  		window.parent.closeWindow('r<%=@Category.id%>');
 			  }
 		</script>
 	</head>
@@ -20,8 +20,13 @@
 			</header> 
 		</section> -->
 		<section id="content">
-			<%= form_for(@Categorytype, remote: true) do |p| %>
-			<%= p.text_field :name, :placeholder=>'Enter the category type', :size=> 50, :required=> true, :autofocus=>true %>
+			<%= form_for(@Category, remote: true) do |p| %>
+			<%= p.text_field :name, :placeholder=>'Enter the category name', :size=> 50, :required=> true, :autofocus=>true %>
+			<br>
+			<br>
+			<%= collection_select("category","categorytype_id",@Categorytypes,:id,:name,{ :prompt=>'Select category type'},{:style=>"width: 394px;line-height:50px;",:required=>true})%>
+			<br>
+			<%= collection_select("category","category_id",@ParentCategories,:id,:name,{ :prompt=>'Select parent'},{:style=>"width: 394px;line-height:50px;"})%>
 			<br>
 			<br>
 			<section id="tbar">

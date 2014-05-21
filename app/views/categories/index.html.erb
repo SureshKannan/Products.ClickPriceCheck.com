@@ -37,13 +37,13 @@
 	  			
 	  			id = this.id.replace('r','');
 	  			$( "#dialog-form" ).dialog( "open" );
-			    $("#newdialog").attr('src','<%=categorytypes_path%>/'+id+'/edit?mode=edit');
+			    $("#newdialog").attr('src','<%=categories_path%>/'+id+'/edit?mode=edit');
 	  		}
 	  		function openNewWindow()
 	  		{
 	  			  $( "#dialog-form" ).dialog( "open" );
 		          page = $("#page").val();
-				  $("#newdialog").attr('src','<%=new_categorytype_url%>?mode=new&page='+page);
+				  $("#newdialog").attr('src','<%=new_category_url%>?mode=new&page='+page);
 	  		}			
 			//updating the data
 			function updateData(mode,data,rowid)
