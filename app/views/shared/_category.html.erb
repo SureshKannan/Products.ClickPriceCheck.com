@@ -26,11 +26,15 @@
 				<tr id="r<%=c.id%>">
 					<td><input type="checkbox" id="c<%=c.id%>" value='<%=c.id%>' name="ps[]"/></td>
 					<td><%=c.name %></td>
-					<td><%=c.categorytype.name %></td>
-					<% if c.parent.nil? %>
-						<td>&nbsp;</td>
+					<% if c.categorytype.present? %>
+						<td><%=c.categorytype.name %></td>
 					<% else %>
-					<td><%=c.parent.name %></td>
+						<td>&nbsp;</td>
+					<% end %>
+					<% if c.parent.present? %>
+						<td><%=c.parent.name %></td>
+					<% else %>
+						<td>&nbsp;</td>
 					<% end %>
 					<td><% if !c.created_at.nil?  %>
 						<%=c.created_at.strftime('%Y-%m-%d')%>

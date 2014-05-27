@@ -11,9 +11,9 @@ class CategoriesController < ApplicationController
       end
     end
     if @mode!='search'
-      @Categories = Category.all.paginate(:page => @page, :per_page => 10)
+      @Categories = Category.all.paginate(:page => @page, :per_page => 10).includes(:categorytype,:parent)
     else
-      @Categories=@Categories.paginate(:page=>@page,:per_page=>10)
+      @Categories=@Categories.paginate(:page=>@page,:per_page=>10).includes(:categorytype,:parent)
     end
     respond_to do |format|
       format.html
@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
   def new
     @Category = Category.new
     @Categorytypes = Categorytype.all
-    @ParentCategories = Category.all
+    @ParentCategories = Category.all.includes(:categorytype,:parent)
     @mode= params[:mode]
     @page = params[:page]
   end  
@@ -43,7 +43,8 @@ class CategoriesController < ApplicationController
       @Category = Category.new(category_params)
       @Category.save
       @page = params[:page]
-      @Categories = Category.all.paginate(:page =>@page, :per_page => 10)
+      @Categories = Category.all.paginate(:page =>@page, :per_page => 10).includes(:categorytype,:parent)
+      @ParentCategories = Category.all
       respond_to do |f|
          f.js 
       end

@@ -1,9 +1,10 @@
 <% begin %>
 	<% if @mode=="new"%>
 		<% if (@Category.new_record? == false) %>
-			window.parent.updateData("new","<%=escape_javascript(render(:partial => "shared/category"))%>","0");
+			
 			$("#category_name").val("");
 			$("#category_name").focus();
+			alert("ok");
 			<!-- alert('<%=@Categorytype.name%> sucessfully created!'); -->
 		<% else %>
 			alert('Error creating category');

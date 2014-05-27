@@ -1,6 +1,6 @@
 class CategoryTypes < ActiveRecord::Migration
   def change
-    create_table  :CategoryTypes do |t|
+    create_table  :categoryTypes do |t|
       t.string :name, :size=>75, null:false
       t.string :status, :size=>1, null:true
       t.timestamps

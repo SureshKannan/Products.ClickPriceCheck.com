@@ -1,6 +1,6 @@
 class Categories < ActiveRecord::Migration
   def change
-    create_table  :Categories do |t|
+    create_table  :categories do |t|
       t.string :name,:size=>75, null:false
       #t.integer :parentid, null:true
       t.belongs_to :categorytype
