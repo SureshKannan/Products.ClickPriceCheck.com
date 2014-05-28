@@ -1,35 +1,20 @@
 <% begin %>
 	<% if @mode=="new"%>
-		<% if (@Category.new_record? == false) %>
-			
+		<% if (@Category.new_record? == false) %>	
+			window.parent.updateData("new","<%=escape_javascript(render(:partial => "shared/category"))%>","0");
+			<!-- $("#parentcategories").html("drop down"); -->
+			$("#parentcategories").html("<%=escape_javascript(collection_select('category','category_id',@ParentCategories,:id,:name,{ :prompt=>'Select parent'},{:style=>'width: 394px;line-height:50px;'}))%>");
 			$("#category_name").val("");
 			$("#category_name").focus();
-			alert("ok");
-			<!-- alert('<%=@Categorytype.name%> sucessfully created!'); -->
 		<% else %>
 			alert('Error creating category');
-		<%end%>		
+		<%end%>
 	<% else %>
-		str = " <tr id='r<%=@Category.id%>'> " +
-			  " <td><input type='checkbox' id='r<%=@Category.id%>' name='ps[]'/></td> " +
-			  " <td><%=@Category.name %></td>  ";
-			  <% if !@Category.created_at.nil?  %>
-				str += " <td><%=@Category.created_at.strftime('%Y-%m-%d')%> </td>";
-			  <% end %>
-			  str += " 	</td> ";
-			  <% if @Category.status.nil? %>
-				str += "<td>Active</td>";
-			  <% else %>
-				str += "<td>Inactive</td>";
-			  <% end %>
-			  str += "<td><img src='assets/delete.png' /></td>";
-			  str += "</tr>";
-			window.parent.updateData("edit",str,"r<%=@Category.id%>");
-			<!-- alert('<%=@Categorytype.name%> successfully updated!'); -->
-			window.parent.closeWindow("r<%=@Category.id%>");
-			<!-- window.parent.document.getElementById("btnClose").click(); -->
+		alert("else");
 	<% end %>
 <% rescue Exception => e %>
+	alert("<%=e.message%>");
+	<% puts "error in rescue"%>
 	<% puts e.message %>
 <% end %>
 
