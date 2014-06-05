@@ -51,11 +51,13 @@
 				if (mode=="new")
 				{
 					// $(".dataTable > tbody:last").append(data);
-					$("#categorytypes").html(data);
+					$("#categories").html(data);
 					$('.pagination a').attr('data-remote', 'true');
 				}
 				else
 				{
+					alert("edit");
+					alert(data);
 				$("#" + rowid).replaceWith(data);
 				}
 
@@ -140,11 +142,11 @@
 			<input type="text" id="page" name="page" value="<%=@page%>" style='display: none;visibility: hidden;'/>
 			<input type="text" id="mode" name="mode" value="<%=@mode%>" style='display: none;visibility: hidden'/>
 		</section>
-		<div id="categorytypes">
+		<div id="categories">
 			<%= render :partial => 'shared/category' %>
 		</div>
 		<!-- dialog start -->
-		<div id="dialog-form" title="New category type">
+		<div id="dialog-form" title="New category">
 			<iframe id="newdialog" name="newdialog" seamless="seamless" frameborder="0" height="100%" width="100%" scrolling="no"> 
 		    </iframe>
 		</div>

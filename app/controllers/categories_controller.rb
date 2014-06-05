@@ -50,6 +50,23 @@ class CategoriesController < ApplicationController
       end
     end        
   end  
+  def edit
+    @Category = Category.find(params[:id])
+    @Categorytypes = Categorytype.all
+    @ParentCategories = Category.all
+    @mode = params[:mode]
+    render "new"
+  end
+  def update
+    @Category = Category.find(params[:id])
+    @mode= params[:mode]
+    @Category.update(category_params)
+    respond_to do |f|
+      f.js {render "create"}
+    end
+  end
+    
+  
    private
   def category_params
     if :category.nil?

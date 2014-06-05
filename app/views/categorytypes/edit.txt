@@ -1,0 +1,23 @@
+<!-- str = " <tr id='r<%=@Category.id%>'> " + 
+  			  " <td><input type='checkbox' id='c<%=@Category.id%>' value='<%=@Category.id%>' name='ps[]'/></td> " +
+  			  " <td><%=@Category.name %></td> ";
+		<% if @Category.categorytype.present? %>
+			str += "<td><%=@Category.categorytype.name %></td> "; 
+  		<% else %>
+			str += "<td>&nbsp;</td>";
+  		<% end %>
+  	    <% if @Category.parent.present? %>
+			str += "<td><%=@Category.parent.name %></td>";
+  		<% else %>
+			str += "<td>&nbsp;</td>";
+  		<% end %>
+  		<% if !@Category.created_at.nil?  %>
+			str += "<td><%=@Category.created_at.strftime('%Y-%m-%d')%></td>";
+  		<% end %>
+  		<% if @Category.status.nil? %>
+			str += "<td>Active</td>";
+  		<% else %>
+    		str += "<td>Inactive</td>";
+  		<% end %> -->
+  		
+str += "<%=link_to(image_tag('delete.png',:border=>0), {:action=>'delete',:id=> @Category.id,:page=>@page},:method=>:post, :remote=>true, :data=> { :confirm=>'Are you sure?' })%>"; -->
