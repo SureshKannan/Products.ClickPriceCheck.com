@@ -8,6 +8,16 @@ ProductsClickpricecheckCom::Application.routes.draw do
   #get 'categorytypes/listtypes' => 'categorytypes#listtypes'
   resources :categories
   resources :categorytypes
+  
+  controller :priority do
+    get "priority/index"
+    get "priority/delete"
+    get "priority/new"
+    get "priority/edit"
+  end
+
+
+
    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
