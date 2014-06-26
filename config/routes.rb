@@ -14,6 +14,8 @@ ProductsClickpricecheckCom::Application.routes.draw do
     get "priority/delete"
     get "priority/new"
     get "priority/edit"
+    post "priority/create"
+    
   end
 
 

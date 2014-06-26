@@ -20,7 +20,7 @@
 			</header> 
 		</section> -->
 		<section id="content">
-			<%= form_for(@priority, remote: true) do |p| %>
+			<%= form_for(@priority,url: { action: "xxxx" }, remote: true) do |p| %>
 			<%= p.text_field :name, :placeholder=>'Enter the priority', :size=> 50, :required=> true, :autofocus=>true %>
 			<br>
 			<section id="tbar">
